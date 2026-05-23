@@ -1,0 +1,1132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaolin Kungfu Chinese Restaurant – Lekki, Lagos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A017;
+    --gold-light: #F2C94C;
+    --gold-dim: #8a6510;
+    --black: #050505;
+    --dark: #0d0a08;
+    --deep-red: #6B0F1A;
+    --red: #8B1A2A;
+    --charcoal: #1a1614;
+    --warm-white: #F5ECD7;
+    --text-muted: #a89070;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--warm-white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 18px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, rgba(5,5,5,0.95) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(212,160,23,0.15);
+    backdrop-filter: blur(10px);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(5,5,5,0.98); }
+
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+  .nav-logo span { display: block; font-size: 0.55rem; color: var(--text-muted); letter-spacing: 0.3em; text-transform: uppercase; font-family: 'Lato', sans-serif; font-weight: 400; }
+
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold); transform: scaleX(0);
+    transition: transform 0.3s; transform-origin: left;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 28px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+  /* ─── HERO ─── */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 60%, rgba(107,15,26,0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 50%, rgba(212,160,23,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 40%, rgba(212,160,23,0.06) 0%, transparent 60%);
+  }
+
+  /* Animated gold particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-particle linear infinite;
+  }
+  @keyframes float-particle {
+    0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-10vh) rotate(360deg); }
+  }
+
+  /* Chinese pattern border */
+  .hero-frame {
+    position: absolute; inset: 20px;
+    border: 1px solid rgba(212,160,23,0.3);
+    pointer-events: none;
+  }
+  .hero-frame::before {
+    content: ''; position: absolute; inset: 8px;
+    border: 1px solid rgba(212,160,23,0.15);
+  }
+  .corner {
+    position: absolute; width: 40px; height: 40px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+    animation: hero-reveal 1.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes hero-reveal {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 20px;
+    animation: hero-reveal 1.6s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-chinese {
+    font-size: clamp(1.8rem, 5vw, 4rem);
+    color: rgba(212,160,23,0.2);
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
+    letter-spacing: 0.15em;
+    font-weight: 300;
+    pointer-events: none;
+    animation: hero-reveal 2s 0.1s both;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    line-height: 1.1;
+    margin-bottom: 8px;
+    animation: hero-reveal 1.6s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    font-weight: 400;
+    margin-bottom: 30px;
+    animation: hero-reveal 1.6s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-divider {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin-bottom: 30px;
+    animation: hero-reveal 1.6s 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-divider span { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .hero-divider span:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+  .hero-divider .diamond { color: var(--gold); font-size: 0.6rem; }
+
+  .hero-tagline {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 50px;
+    font-style: italic;
+    animation: hero-reveal 1.6s 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+    animation: hero-reveal 1.6s 0.9s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    padding: 16px 48px;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: none; cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,160,23,0.3); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--warm-white);
+    padding: 16px 48px;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    border: 1px solid rgba(245,236,215,0.4);
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--warm-white); background: rgba(245,236,215,0.05); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: hero-reveal 2s 1.2s both;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scroll-pulse 2s infinite;
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6); transform-origin: top; }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 100px 60px; }
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--warm-white);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .section-title .gold { color: var(--gold); }
+
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+    max-width: 560px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+  .about-visual {
+    position: relative;
+    height: 500px;
+  }
+  .about-img-box {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #110e0b 100%);
+    border: 1px solid rgba(212,160,23,0.2);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .about-img-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(212,160,23,0.08) 0%, transparent 70%),
+      repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(212,160,23,0.02) 20px, rgba(212,160,23,0.02) 21px);
+  }
+  .about-icon {
+    font-size: 8rem;
+    opacity: 0.15;
+    filter: sepia(1);
+    position: relative; z-index: 1;
+  }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    background: var(--gold);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    color: var(--black);
+    text-align: center;
+    z-index: 2;
+  }
+  .about-badge .num { font-size: 2rem; font-weight: 700; line-height: 1; }
+  .about-badge .txt { font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; line-height: 1.4; }
+
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(212,160,23,0.15);
+    margin-top: 40px;
+  }
+  .stat {
+    background: var(--dark);
+    padding: 24px;
+    text-align: center;
+  }
+  .stat .num { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold); font-weight: 600; }
+  .stat .lbl { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 4px; }
+
+  /* ─── MENU ─── */
+  .menu-section { background: var(--black); }
+  .menu-tabs { display: flex; gap: 0; margin: 50px 0 40px; border-bottom: 1px solid rgba(212,160,23,0.2); }
+  .menu-tab {
+    padding: 14px 32px;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.3s;
+    font-family: 'Lato', sans-serif;
+    background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .menu-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .menu-tab:hover { color: var(--warm-white); }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(212,160,23,0.1); }
+  .menu-category { display: none; }
+  .menu-category.active { display: contents; }
+
+  .dish-card {
+    background: var(--charcoal);
+    padding: 32px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+  .dish-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .dish-card:hover { background: #1d1814; }
+  .dish-card:hover::before { transform: scaleX(1); }
+
+  .dish-emoji { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+  .dish-name { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--warm-white); margin-bottom: 8px; font-weight: 600; }
+  .dish-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+  .dish-price { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.1rem; }
+  .dish-price small { font-size: 0.6rem; color: var(--text-muted); font-family: 'Lato', sans-serif; display: block; margin-top: 2px; }
+
+  /* ─── EXPERIENCE ─── */
+  .experience { background: var(--deep-red); position: relative; overflow: hidden; }
+  .experience::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,0,0,0.1) 40px, rgba(0,0,0,0.1) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.1) 40px, rgba(0,0,0,0.1) 41px);
+  }
+  .experience-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; text-align: center; }
+  .exp-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; text-align: left; }
+  .exp-feat { border-top: 1px solid rgba(245,236,215,0.2); padding-top: 24px; }
+  .exp-feat .icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+  .exp-feat h3 { font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--warm-white); margin-bottom: 8px; font-weight: 600; }
+  .exp-feat p { font-size: 0.78rem; color: rgba(245,236,215,0.6); line-height: 1.7; }
+
+  /* ─── GALLERY ─── */
+  .gallery { background: var(--dark); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 250px 250px;
+    gap: 4px; margin-top: 50px;
+  }
+  .gallery-item {
+    background: var(--charcoal);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 2; }
+
+  .gallery-item::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(107,15,26,0.4) 0%, rgba(5,5,5,0.6) 100%);
+    z-index: 1;
+    transition: opacity 0.4s;
+  }
+  .gallery-item:hover::before { opacity: 0; }
+
+  .gal-emoji { font-size: 4rem; position: relative; z-index: 2; opacity: 0.5; transition: transform 0.4s, opacity 0.4s; }
+  .gallery-item:hover .gal-emoji { transform: scale(1.2); opacity: 0.8; }
+
+  .gal-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px;
+    background: linear-gradient(0deg, rgba(5,5,5,0.9) 0%, transparent 100%);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    z-index: 3;
+    transform: translateY(100%); opacity: 0;
+    transition: all 0.4s;
+  }
+  .gallery-item:hover .gal-label { transform: translateY(0); opacity: 1; }
+
+  /* ─── REVIEWS ─── */
+  .reviews { background: var(--black); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(212,160,23,0.1); margin-top: 50px; }
+  .review-card { background: var(--charcoal); padding: 40px; }
+  .stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 4px; margin-bottom: 20px; }
+  .review-text { font-size: 0.88rem; line-height: 1.8; color: var(--text-muted); font-style: italic; margin-bottom: 24px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar {
+    width: 40px; height: 40px;
+    background: var(--gold-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: 1rem; color: var(--black);
+    font-weight: 700;
+  }
+  .reviewer-name { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--warm-white); font-weight: 600; }
+  .reviewer-role { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.1em; }
+
+  /* ─── RESERVATION ─── */
+  .reservation {
+    background: var(--dark);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; align-items: stretch;
+  }
+  .res-info { padding: 80px 60px; background: var(--charcoal); position: relative; overflow: hidden; }
+  .res-info::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,160,23,0.06) 0%, transparent 70%);
+  }
+  .res-detail { margin-bottom: 24px; }
+  .res-detail .lbl { font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .res-detail .val { font-size: 0.9rem; color: var(--warm-white); line-height: 1.6; }
+
+  .res-form { padding: 80px 60px; }
+  .form-title { font-family: 'Cinzel', serif; font-size: 1.6rem; color: var(--warm-white); margin-bottom: 8px; font-weight: 600; }
+  .form-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 40px; }
+
+  .form-group { margin-bottom: 24px; }
+  .form-group label { display: block; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(212,160,23,0.2);
+    color: var(--warm-white);
+    padding: 14px 16px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--dark); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .whatsapp-btn {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: #25D366; color: #fff;
+    padding: 16px 32px;
+    width: 100%; margin-top: 16px;
+    border: none; cursor: pointer;
+    font-family: 'Lato', sans-serif; font-size: 0.8rem;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .whatsapp-btn:hover { background: #1db954; }
+
+  /* ─── MAP ─── */
+  .map-section { background: var(--black); padding: 0; }
+  .map-wrapper { position: relative; height: 400px; }
+  .map-wrapper iframe { width: 100%; height: 100%; border: none; filter: grayscale(80%) invert(85%) sepia(10%) hue-rotate(170deg); }
+  .map-overlay {
+    position: absolute; top: 50%; left: 80px; transform: translateY(-50%);
+    background: var(--black); padding: 32px; max-width: 300px;
+    border: 1px solid rgba(212,160,23,0.3);
+  }
+  .map-overlay h3 { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold); margin-bottom: 12px; font-weight: 600; }
+  .map-overlay p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+  .map-overlay a { display: inline-block; margin-top: 16px; color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(212,160,23,0.3); }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--charcoal); border-top: 1px solid rgba(212,160,23,0.15); }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding: 70px 60px 50px; }
+  .footer-brand .logo { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 16px; display: block; }
+  .footer-brand p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.8; max-width: 260px; }
+  .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(212,160,23,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: var(--text-muted);
+    text-decoration: none; transition: all 0.3s; cursor: pointer;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,160,23,0.08); }
+
+  .footer-col h4 { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--warm-white); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; font-weight: 600; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { font-size: 0.78rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-col p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding: 24px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { font-size: 0.7rem; color: var(--text-muted); }
+  .footer-bottom .gold { color: var(--gold); }
+
+  /* ─── FLOATING WHATSAPP ─── */
+  .float-wa {
+    position: fixed; bottom: 30px; right: 30px; z-index: 999;
+    width: 56px; height: 56px;
+    background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: 1.5rem;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    animation: pulse-wa 2s infinite;
+  }
+  @keyframes pulse-wa {
+    0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 4px 30px rgba(37,211,102,0.7), 0 0 0 8px rgba(37,211,102,0.1); }
+  }
+
+  /* ─── DIVIDER ─── */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+    margin: 0;
+  }
+
+  /* ─── ANNOUNCE BAR ─── */
+  .announce {
+    background: var(--gold);
+    color: var(--black);
+    text-align: center;
+    padding: 10px;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 30px; }
+    .nav-links { display: none; }
+    section { padding: 80px 30px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+    .reservation { grid-template-columns: 1fr; }
+    .res-info { padding: 50px 30px; }
+    .res-form { padding: 50px 30px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; padding: 50px 30px; }
+    .footer-bottom { padding: 20px 30px; flex-direction: column; gap: 10px; text-align: center; }
+    .map-overlay { left: 20px; max-width: 250px; }
+    .exp-features { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; height: 200px; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Announce Bar -->
+<div class="announce">✦ Now Open in Lekki — Mon–Sun: 11:00 AM – 11:00 PM · Real Chinese Taste. Bold Flavours. Warm Hospitality. ✦</div>
+
+<!-- Navigation -->
+<nav id="mainNav">
+  <a href="#home" class="nav-logo">
+    Shaolin Kungfu
+    <span>Chinese Restaurant · Lekki</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <a href="#reservation" class="nav-cta">Reserve a Table</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-frame">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+  </div>
+  <div class="hero-content" style="position:relative;">
+    <div class="hero-chinese">少林功夫中国餐厅</div>
+    <div class="hero-eyebrow">✦ Lekki · Lagos · Nigeria ✦</div>
+    <h1 class="hero-title">Shaolin <span class="gold">Kungfu</span><br>Chinese Restaurant</h1>
+    <p class="hero-subtitle">Lekki, Lagos</p>
+    <div class="hero-divider">
+      <span></span>
+      <span class="diamond">◆</span>
+      <span></span>
+    </div>
+    <p class="hero-tagline">"Real Chinese Taste. Bold Flavours. Warm Hospitality."</p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#reservation" class="btn-secondary">Reserve a Table</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-img-box">
+      <div class="about-icon">🏮</div>
+    </div>
+    <div class="about-badge">
+      <div class="num">#1</div>
+      <div class="txt">Chinese<br>in Lekki</div>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">A Legacy of<br><span class="gold">Authentic Taste</span></h2>
+    <p class="section-desc">Shaolin Kungfu Chinese Restaurant brings the soul of authentic Chinese cuisine to the heart of Lekki. Nestled in the prestigious NICON Estate area along Lekki–Epe Expressway, we have established ourselves as Lagos's premier destination for genuine Chinese flavours — from classic noodle and rice dishes to bold, flavourful entrees crafted for both local and international palates.</p>
+    <p class="section-desc" style="margin-top:16px;">Our kitchen blends rich, time-honoured recipes with the finest fresh ingredients, delivering an experience that is at once authentic and unforgettable. Whether you're joining us for a family feast, a romantic dinner, or a celebratory night out, we promise an evening of culinary excellence wrapped in a warm, luxurious atmosphere.</p>
+    <div class="about-stats">
+      <div class="stat"><div class="num">11AM</div><div class="lbl">Opens Daily</div></div>
+      <div class="stat"><div class="num">11PM</div><div class="lbl">Last Orders</div></div>
+      <div class="stat"><div class="num">7</div><div class="lbl">Days a Week</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Authentic Chinese</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- Menu -->
+<section class="menu-section" id="menu">
+  <div class="section-label">Culinary Journey</div>
+  <h2 class="section-title">Our <span class="gold">Signature Menu</span></h2>
+  <p class="section-desc">A curated selection of classic and contemporary Chinese dishes, prepared with bold flavours and the finest ingredients.</p>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="switchTab(this,'rice')">Rice & Noodles</button>
+    <button class="menu-tab" onclick="switchTab(this,'mains')">Mains</button>
+    <button class="menu-tab" onclick="switchTab(this,'grills')">Grills & BBQ</button>
+    <button class="menu-tab" onclick="switchTab(this,'drinks')">Drinks</button>
+  </div>
+
+  <div class="menu-grid">
+    <!-- Rice & Noodles -->
+    <div class="menu-category active" id="tab-rice">
+      <div class="dish-card">
+        <span class="dish-emoji">🍚</span>
+        <div class="dish-name">Kungfu Special Fried Rice</div>
+        <div class="dish-desc">Our signature fried rice, wok-tossed with premium ingredients and house seasonings. A true crowd favourite.</div>
+        <div class="dish-price">₦13,800 <small>Medium Portion</small></div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🍜</span>
+        <div class="dish-name">Mix Meat Fried Noodles</div>
+        <div class="dish-desc">Classic wok-fried noodles with a hearty selection of meats, tossed in our signature dark soy sauce blend.</div>
+        <div class="dish-price">₦15,800</div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🥘</span>
+        <div class="dish-name">Festac Fried Rice</div>
+        <div class="dish-desc">A fan favourite — fragrant, perfectly seasoned fried rice with a bold, savoury character.</div>
+        <div class="dish-price">₦6,500</div>
+      </div>
+    </div>
+    <!-- Mains -->
+    <div class="menu-category" id="tab-mains">
+      <div class="dish-card">
+        <span class="dish-emoji">🍖</span>
+        <div class="dish-name">Sweet & Sour Spare Ribs</div>
+        <div class="dish-desc">Tender pork ribs in a vibrant sweet and sour glaze — the perfect pairing for our fried rice.</div>
+        <div class="dish-price">₦19,800</div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🍗</span>
+        <div class="dish-name">Grilled Chicken</div>
+        <div class="dish-desc">Succulent chicken marinated in Chinese spices and expertly grilled for a deeply flavourful finish.</div>
+        <div class="dish-price">₦2,200</div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🫀</span>
+        <div class="dish-name">Grilled Gizzard</div>
+        <div class="dish-desc">Charcoal-grilled gizzard with aromatic seasoning — well-marinated and rich in flavour.</div>
+        <div class="dish-price">₦1,800</div>
+      </div>
+    </div>
+    <!-- Grills -->
+    <div class="menu-category" id="tab-grills">
+      <div class="dish-card">
+        <span class="dish-emoji">🥩</span>
+        <div class="dish-name">Grilled Snowflake Beef</div>
+        <div class="dish-desc">Premium beef skewers, marinated in our house blend of Chinese spices and grilled to smoky perfection.</div>
+        <div class="dish-price">₦2,000 <small>Per Stick</small></div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🫀</span>
+        <div class="dish-name">Roast Lamb Kidney</div>
+        <div class="dish-desc">A bold street-style Chinese delicacy — lamb kidneys seasoned with cumin, chilli and garlic, roasted on skewers.</div>
+        <div class="dish-price">₦4,000 <small>Per Stick</small></div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🔥</span>
+        <div class="dish-name">BBQ Platter</div>
+        <div class="dish-desc">A generous assortment of our finest grilled meats — ideal for groups and celebrations.</div>
+        <div class="dish-price">Market Price</div>
+      </div>
+    </div>
+    <!-- Drinks -->
+    <div class="menu-category" id="tab-drinks">
+      <div class="dish-card">
+        <span class="dish-emoji">🍹</span>
+        <div class="dish-name">Kungfu Pot Cocktail</div>
+        <div class="dish-desc">Our signature house cocktail — a theatrical, bold concoction that captures the spirit of Shaolin.</div>
+        <div class="dish-price">₦6,000</div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">🥤</span>
+        <div class="dish-name">Fresh Juices</div>
+        <div class="dish-desc">Cold-pressed seasonal fruit juices, perfectly balanced and refreshing.</div>
+        <div class="dish-price">₦3,500</div>
+      </div>
+      <div class="dish-card">
+        <span class="dish-emoji">💧</span>
+        <div class="dish-name">Soft Drinks & Water</div>
+        <div class="dish-desc">A full selection of beverages to complement your meal.</div>
+        <div class="dish-price">From ₦1,500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- Experience -->
+<section class="experience" id="experience">
+  <div class="experience-inner">
+    <div class="section-label" style="justify-content:center;">The Shaolin Experience</div>
+    <h2 class="section-title" style="text-align:center;">More Than a Meal.<br><span class="gold">A Destination.</span></h2>
+    <p class="section-desc" style="margin:0 auto; text-align:center;">From the moment you arrive at our gold-lit exterior to the final sip of your cocktail, every detail at Shaolin Kungfu has been curated for an unforgettable experience.</p>
+    <div class="exp-features">
+      <div class="exp-feat">
+        <span class="icon">🏮</span>
+        <h3>Luxury Ambience</h3>
+        <p>A cozy, upscale setting with Asian-modern décor — ideal for families, couples, and celebrations alike. Gold lighting, floral details, and cinematic atmosphere.</p>
+      </div>
+      <div class="exp-feat">
+        <span class="icon">👨‍🍳</span>
+        <h3>Authentic Chinese Kitchen</h3>
+        <p>Traditional and contemporary Chinese dishes, crafted with bold flavours and the freshest ingredients — from classic noodles to premium grills.</p>
+      </div>
+      <div class="exp-feat">
+        <span class="icon">🎉</span>
+        <h3>Events & Celebrations</h3>
+        <p>Our spacious venue is perfect for birthdays, corporate dinners, date nights, and group hangouts. Contact us to plan your next special occasion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- Gallery -->
+<section class="gallery" id="gallery">
+  <div class="section-label">Inside Shaolin</div>
+  <h2 class="section-title">Experience the <span class="gold">Atmosphere</span></h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <span class="gal-emoji">🏮</span>
+      <div class="gal-label">Luxury Exterior Lighting</div>
+    </div>
+    <div class="gallery-item">
+      <span class="gal-emoji">🍜</span>
+      <div class="gal-label">Signature Noodle Dishes</div>
+    </div>
+    <div class="gallery-item">
+      <span class="gal-emoji">🥂</span>
+      <div class="gal-label">Cocktail Bar</div>
+    </div>
+    <div class="gallery-item">
+      <span class="gal-emoji">🪑</span>
+      <div class="gal-label">Modern Chinese Interior</div>
+    </div>
+    <div class="gallery-item">
+      <span class="gal-emoji">🔥</span>
+      <div class="gal-label">Live Grill Station</div>
+    </div>
+    <div class="gallery-item">
+      <span class="gal-emoji">🌃</span>
+      <div class="gal-label">Nighttime Lekki Vibes</div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:24px; font-size:0.75rem; color:var(--text-muted); letter-spacing:0.2em;">
+    Follow us on Instagram: <a href="https://instagram.com/shaolinkungfuchinese" target="_blank" style="color:var(--gold); text-decoration:none;">@shaolinkungfuchinese</a>
+  </p>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- Reviews -->
+<section class="reviews" id="reviews">
+  <div class="section-label">Guest Voices</div>
+  <h2 class="section-title">What Our Guests <span class="gold">Say</span></h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"The Kungfu Special Fried Rice paired with the sweet and sour spare ribs was absolutely divine. The grills are incredibly well-marinated and so flavourful. Customer service was attentive and warm. Definitely coming back!"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">A</div>
+        <div>
+          <div class="reviewer-name">Adaeze O.</div>
+          <div class="reviewer-role">Lagos Food Lover · Google Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Finally, authentic Chinese flavours in Lekki! The space is beautiful and luxurious, perfect for a date night or family dinner. The mix meat noodles were exceptional — bold, fresh, and deeply satisfying."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">C</div>
+        <div>
+          <div class="reviewer-name">Chukwuemeka B.</div>
+          <div class="reviewer-role">Regular Guest · Instagram Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Worth every naira! The Kungfu Pot Cocktail alone is reason enough to visit. The nighttime ambience with all the gold lighting is stunning — it looks like a scene from a movie. Highest recommendation."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">F</div>
+        <div>
+          <div class="reviewer-name">Fatima L.</div>
+          <div class="reviewer-role">Food Blogger · TikTok Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- Reservation -->
+<div class="reservation" id="reservation">
+  <div class="res-info">
+    <div class="section-label">Find Us</div>
+    <h2 class="section-title" style="font-size:1.8rem;">Visit <span class="gold">Shaolin Kungfu</span></h2>
+    <div style="height:24px;"></div>
+
+    <div class="res-detail">
+      <div class="lbl">Address</div>
+      <div class="val">NICON Estate Area,<br>Lekki–Epe Expressway,<br>Eti-Osa, Lagos, Nigeria</div>
+    </div>
+    <div class="res-detail">
+      <div class="lbl">Opening Hours</div>
+      <div class="val">Monday – Sunday<br>11:00 AM – 11:00 PM</div>
+    </div>
+    <div class="res-detail">
+      <div class="lbl">Cuisine</div>
+      <div class="val">Authentic Chinese<br>Traditional & Contemporary</div>
+    </div>
+    <div class="res-detail">
+      <div class="lbl">Perfect For</div>
+      <div class="val">Family Dining · Date Nights<br>Celebrations · Group Hangouts</div>
+    </div>
+    <div class="res-detail">
+      <div class="lbl">Instagram</div>
+      <div class="val"><a href="https://instagram.com/shaolinkungfuchinese" target="_blank" style="color:var(--gold); text-decoration:none;">@shaolinkungfuchinese</a></div>
+    </div>
+
+    <a href="https://wa.me/2348096358888?text=Hello%2C%20I%20would%20like%20to%20make%20a%20reservation%20at%20Shaolin%20Kungfu%20Chinese%20Restaurant%20Lekki." target="_blank" class="whatsapp-btn" style="margin-top:32px; max-width:280px;">
+      <span>💬</span> WhatsApp Booking
+    </a>
+  </div>
+
+  <div class="res-form">
+    <div class="form-title">Reserve Your Table</div>
+    <p class="form-subtitle">Fill in the details below and we'll confirm your reservation shortly.</p>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your full name">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date">
+      </div>
+      <div class="form-group">
+        <label>Time</label>
+        <input type="time" min="11:00" max="22:00">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="08XXXXXXXXX">
+      </div>
+      <div class="form-group">
+        <label>Guests</label>
+        <select>
+          <option>1–2 Guests</option>
+          <option>3–4 Guests</option>
+          <option>5–8 Guests</option>
+          <option>9–15 Guests</option>
+          <option>Large Group (15+)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Special Requests</label>
+      <textarea rows="3" placeholder="Allergies, celebrations, special arrangements..."></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%; clip-path:none; padding:18px;" onclick="handleReservation()">Confirm Reservation</button>
+    <a href="https://wa.me/2348096358888?text=Hello%2C%20I%20would%20like%20to%20make%20a%20reservation%20at%20Shaolin%20Kungfu%20Chinese%20Restaurant%20Lekki." target="_blank" class="whatsapp-btn">
+      <span>💬</span> Or Book via WhatsApp
+    </a>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- Map -->
+<div class="map-section" id="location">
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.8!2d3.5007979!3d6.4360387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf709b9bcdff5%3A0xc73167c9d92feabb!2sShaolin%20Kungfu%20Chinese%20Restaurant%20(Lekki)!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <div class="map-overlay">
+      <h3>📍 Find Us in Lekki</h3>
+      <p>NICON Estate Area, Lekki–Epe Expressway, Eti-Osa, Lagos, Nigeria</p>
+      <p style="margin-top:10px; color:var(--gold);">Open: Mon–Sun · 11AM – 11PM</p>
+      <a href="https://maps.app.goo.gl/SESPCpptjQ3JoYto6" target="_blank">Get Directions →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo">Shaolin Kungfu</span>
+      <p>A modern premium Chinese dining destination in Lekki, Lagos. Real Chinese taste, bold flavours, warm hospitality — seven days a week.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="https://instagram.com/shaolinkungfuchinese" target="_blank">IG</a>
+        <a class="social-btn" href="https://wa.me/2348096358888" target="_blank">WA</a>
+        <a class="social-btn" href="#" target="_blank">TT</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#reservation">Reservations</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hours</h4>
+      <p>Monday – Sunday</p>
+      <p style="color:var(--gold); margin-top:8px;">11:00 AM – 11:00 PM</p>
+      <p style="margin-top:16px;">Kitchen closes at 10:30 PM</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>NICON Estate, Lekki–Epe Expressway, Eti-Osa, Lagos</p>
+      <p style="margin-top:12px;"><a href="https://wa.me/2348096358888" style="color:var(--gold); text-decoration:none;">WhatsApp Us</a></p>
+      <p style="margin-top:8px;"><a href="https://instagram.com/shaolinkungfuchinese" target="_blank" style="color:var(--gold); text-decoration:none;">@shaolinkungfuchinese</a></p>
+      <p style="margin-top:8px;"><a href="https://maps.app.goo.gl/SESPCpptjQ3JoYto6" target="_blank" style="color:var(--gold); text-decoration:none;">View on Google Maps</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span class="gold">Shaolin Kungfu Chinese Restaurant</span> · Lekki, Lagos · All Rights Reserved</p>
+    <p style="font-size:0.65rem; color:var(--text-muted);">少林功夫中国餐厅</p>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/2348096358888?text=Hello%2C%20I%27d%20like%20to%20make%20a%20reservation%20at%20Shaolin%20Kungfu%20Chinese%20Restaurant%20Lekki." target="_blank" class="float-wa" title="Book via WhatsApp">💬</a>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Generate floating particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      width:${Math.random()*3+1}px;
+      height:${Math.random()*3+1}px;
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(p);
+  }
+
+  // Menu tabs
+  function switchTab(btn, id) {
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-category').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+id).classList.add('active');
+  }
+
+  // Reservation handler
+  function handleReservation() {
+    const inputs = document.querySelectorAll('.res-form input, .res-form select');
+    let filled = true;
+    inputs.forEach(i => { if (!i.value) filled = false; });
+    if (!filled) {
+      alert('Please fill in all required fields to complete your reservation.');
+      return;
+    }
+    const name = inputs[0].value;
+    const date = inputs[1].value;
+    const time = inputs[2].value;
+    const phone = inputs[3].value;
+    const guests = document.querySelector('.res-form select').value;
+    const msg = `Hello! I'd like to make a reservation at Shaolin Kungfu Chinese Restaurant Lekki.%0A%0AName: ${encodeURIComponent(name)}%0ADate: ${date}%0ATime: ${time}%0AGuests: ${encodeURIComponent(guests)}%0APhone: ${phone}`;
+    window.open(`https://wa.me/2348096358888?text=${msg}`, '_blank');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.dish-card, .review-card, .exp-feat, .stat, .gallery-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
